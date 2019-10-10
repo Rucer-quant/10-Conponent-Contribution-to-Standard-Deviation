@@ -403,7 +403,4 @@ p <- mtcars %>%
   #环形图的特征所在，加入一个半径为0.6单位的饼图，使得整幅图被挖去一部分，变成一个环形图
   add_pie(hole = 0.6) %>%
   #显示了图例名称showlegend = TRUE
-  layout(title = "Donut charts using Plotly",  showlegend = TRUE,
-         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
-p
+
