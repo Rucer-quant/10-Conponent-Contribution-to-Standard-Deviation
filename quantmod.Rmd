@@ -141,9 +141,10 @@ pander::pander(new.environment[["AAPL"]])
 
 ```{r,message=FALSE}
   #检查数据里面包含某种数据类型
-
-  has.Op(AAPL) #是否包含开盘价
-  has.OHLC(AAPL)#是否包含开盘价，最高价，最低价，收盘价
+  #是否包含开盘价
+  has.Op(AAPL) 
+  #是否包含开盘价，最高价，最低价，收盘价
+  has.OHLC(AAPL)
   has.OHLC(AAPL,which=FALSE)
 
   has.OHLC(AAPL,which=TRUE)
@@ -178,15 +179,13 @@ pander::pander(new.environment[["AAPL"]])
   #(关盘价-开盘价)/开盘价
   Delt(Op(AAPL),Cl(AAPL))
             
-  head(AAPL) 
-  #元素前进一天,485.63 本来是2013-10-02的数据
-  Next(AAPL,1)
+
 ```
 
 
 **Next()函数**
 ```{r}
-  AAPL
+  head(AAPL)
   #所有观测值的值前进k个单位
   Next(AAPL,1)
 ```
@@ -195,22 +194,22 @@ pander::pander(new.environment[["AAPL"]])
 ```{r}
   getSymbols("AAPL")
   periodReturn(AAPL,period = "daily",subset = "2013-10-01::2013-10-23",type = "arithmetic")
-  dailyReturn(AAPL)
+  head(dailyReturn(AAPL))
   first(allReturns(AAPL),5)
 ```
 
 
 # 三、展现类函数
 
-#这里图完善一下
+# 这里图完善一下图的名字
 
 ## （一）基础图形的作图——条形图，蜡烛图，线图
 
 |作图函数|描述|
 |:-:|:-:|
-|chartTheme()||
-|chartSeries()||
-|reChart()||
+|chartTheme()|啥啥啥|
+|chartSeries()|啥都是|
+|reChart()|啥|
 |barChart()|箱型图|
 |candleChart()|蜡烛图|
 |lineChart()|线图|
@@ -219,18 +218,18 @@ pander::pander(new.environment[["AAPL"]])
 主绘图函数，可以画条形图，蜡烛图和线图
 
 ```{r}
-chartSeries(AAPL,name = "AAPLCHART",subset = "013-10-01::2013-10-23")
+chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23")
 
-chartSeries(AAPL,name = "AAPLCHART",subset = "013-10-01::2013-10-23",theme = "white")
+chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23",theme = "white")
 
 #适合印刷
 chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23",theme = "white.mono")
 
-chart_Series(AAPL,type = "auto")
-chart_Series(AAPL,type = "candlesticks")
-chart_Series(AAPL,type = "bar")
-chart_Series(AAPL,type = "line")
-chart_Series(AAPL,type = "matchsticks")
+chart_Series(AAPL,type = "auto"，subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "candlesticks"，subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "bar"，subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "line"，subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "matchsticks"，subset = "2013-10-01::2013-10-23")
 
 ```
 
