@@ -16,16 +16,6 @@ library(quantmod)
 
 ## （一）常用的数据类型
 
-|数据类型|全称|意义|
-|:-:|:-:|:-:|
-|Op| Open price|开盘价|
-|Hi |High price|最高价|
-|Lo |Low price|最低价|
-|Cl |Close price|收盘价|
-|Vo |Volume|交易量|
-|Ad |Adjusted price|调整价格|
-|HLC| Hi,Lo,Cl|最高价、最低价和收盘价|
-|OHLC| Op,Hi,Lo,Cl|开盘价、最高价、最低价和收盘价|
 
 ## （二）ETL类函数
 
@@ -54,7 +44,8 @@ library(quantmod)
 在全局环境下新建容器，容器是存放对象的。对象的名称是new.environment。通过ls()列出new.environment容器下AAPL变量值.
 获取数据，并将获取后的记录放到AAPL中。AAPL通过env参数指定容器。通过get()获取new.environment容器下AAPL变量值。
 
-```{r,message=FALSE}
+```{r}
+  new.environment=new.env()
   getSymbols("AAPL",env=new.environment,scr="yahoo",from="2013-10-01",to="2013-10-10")
   ls(envir=new.environment)
   pander::pander( new.environment[["AAPL"]],split.cells = 3)
@@ -62,28 +53,28 @@ library(quantmod)
 
 **获取各种指数的日数据**，例如获取沪深300指数的日数据，它的代码为00300.ss，后面的字母表示该指数从属哪个交易所。
 
-```{r, message=FALSE}
-  getSymbols("000300.ss",env=new.environment,scr ="yahoo",from="2013-10-01",to="2013-10-10")
+```{r message=TRUE}
+  getSymbols("000300.ss",env=new.environment,scr ="yahoo",from="2013-10-01",to="2013-12-10")
   ls(envir = new.environment)
-  pander::pander(new.environment[["000300.ss"]],split.cells =3)
+  head(pander::pander(new.environment[["000300.SS"]],split.cells =3),5)
 ```
 
-### 2.getFX() 函数
-从oanda上获取汇率
+<!-- ### 2.getFX() 函数 -->
+<!-- 从oanda上获取汇率 -->
 
-```{r,message=FALSE}
-  getFX("HKD/USD",from="2013-10-20",env=new.environment)
-  pander::pander(new.environment[["HKD/USD"]],split.cells =3)
-```
+<!-- ```{r eval=FALSE, include=FALSE, r,message=FALSE} -->
+<!--   getFX("HKD/USD",from="2019-06-20",env=new.environment) -->
+<!--   pander::pander(new.environment[["HKD/USD"]],split.cells =3) -->
+<!-- ``` -->
 
-### 3.getFianacials()函数
-从Google Finance上下载财务报表，其中包括IS/BS/CF,"Q"代表季度的数据
-```{r,message=FALSE}
-  getFinancials("AAPL")
-  pander::pander(new.environment[[AAPL]],split.cells =3)
-  viewFinancials(AAPL.f)
-  viewFinancials(AAPL.f,c("CF","IS","BS"),"Q")
-```
+<!-- ### 3.getFianacials()函数 -->
+<!-- 从Google Finance上下载财务报表，其中包括IS/BS/CF,"Q"代表季度的数据 -->
+<!-- ```{r eval=FALSE, include=FALSE, r,message=FALSE} -->
+<!--   getFinancials("AAPL") -->
+<!--   pander::pander(new.environment[[AAPL]],split.cells =3) -->
+<!--   viewFinancials(AAPL.f) -->
+<!--   viewFinancials(AAPL.f,c("CF","IS","BS"),"Q") -->
+<!-- ``` -->
 
 ### 4.getDividends
 ```{r,message=FALSE}
@@ -98,23 +89,30 @@ pander::pander(new.environment[["AAPL"]])
 **3.列名函数**
 **4.计算函数**
 
-
-# 三、展现类函数
-
-
-
-
-
-
  
+## （一）列名函数
+提取某种类型
+
+|数据类型|全称|意义|
+|:-:|:-:|:-:|
+|Op| Open price|开盘价|
+|Hi |High price|最高价|
+|Lo |Low price|最低价|
+|Cl |Close price|收盘价|
+|Vo |Volume|交易量|
+|Ad |Adjusted price|调整价格|
+|HLC| Hi,Lo,Cl|最高价、最低价和收盘价|
+|OHLC| Op,Hi,Lo,Cl|开盘价、最高价、最低价和收盘价|
+
+```{r}
+  getSymbols("AAPL",from="2013-09-01", to="2013-09-20")
+  Op(AAPL)
+  Hi(AAPL)
+  Lo(AAPL)
+```
  
 
- 
-
- 
-
- 
-## （一）is 族函数
+## （二）is 族函数
 判断某数据是否是某类型的数据
  
     is.OHLC() --Open price,High price,Low price Close price 开盘价，最高价，最低价和收盘价
@@ -123,7 +121,7 @@ pander::pander(new.environment[["AAPL"]])
     is.TBBO()
     is.HLC()
  
-## （二）hash 函数
+## （三）hash 函数
 检查数据里面是否包含某类型的数据
 
     has.OHLC()
@@ -141,84 +139,190 @@ pander::pander(new.environment[["AAPL"]])
     has.Qty()
     has.Trade()
 
- 
- 
- 
-has.Op(AAPL) #是否包含开盘价
-has.OHLC(AAPL) #是否包含开盘价，最高价，最低价，收盘价
+```{r,message=FALSE}
+  #检查数据里面包含某种数据类型
 
- 
-3.列名函数
-提取某种类型
-> Op(AAPL)
-           
- 
-> Hi(AAPL)
-           
- 
-> Lo(AAPL)
+  has.Op(AAPL) #是否包含开盘价
+  has.OHLC(AAPL)#是否包含开盘价，最高价，最低价，收盘价
+  has.OHLC(AAPL,which=FALSE)
 
+  has.OHLC(AAPL,which=TRUE)
+```
  
-4.计算函数
  
-Delt() 计算变化率
-Lag() 求滞后K期
-Next() 所有观测值的值前进k个单位
-first() 求前K个元素
-last() 求后K个元素
-计算不同阶段的收益率
-periodReturn()
-dailyReturn()
-weeklyReturn()
-monthlyReturn()
-quarterlyReturn()
-annualReturn()
-yearlyReturn()
-allReturn()
- 
-Delt()函数
+## （四）计算函数
+
+|函数|描述|
+|:-:|:-:|
+|Delt()|计算变化率|
+|Lag()|求滞后K期|
+|Next()|所有观测值的值前进k个单位|
+|first()|求前K个元素|
+|last()|求后K个元素|
+|periodReturn()|计算不同阶段的收益率|
+|dailyReturn()|计算日收益率|
+|weeklyReturn()|计算周收益率|
+|monthlyReturn()|计算月收益率|
+|quarterlyReturn()|计算季度收益率|
+|annualReturn()|计算年化收益率|
+|yearlyReturn()|计算年收益率|
+|allReturn()|各种收益率汇总|
+
+**Delt()函数**
 主要是用来计算一个序列的一个阶段到另一个阶段的变化率或者计算两个序列之间的变化率
- 
- 
---当天减去前一天的值，然后除以前一天的值
-> Delt(Op(AAPL),type=("arithmetic"))
-         
- 
---(关盘价-开盘价)/开盘价
-> Delt(Op(AAPL),Cl(AAPL))
-          
- 
- 
---元素前进一天,485.63 本来是2013-10-02的数据
-> Next(AAPL,1)
-           
-将数据转化为周数据或者月数据
- 
-周，将周初的开盘价作为开盘价，周内的最低价及最高价作为最高最低价
-交易量则汇总周内的所有交易量
-> to.weekly(AAPL)
-          
-月，则将月初的开盘价作为开盘价，月初的关盘价作为月末的关盘价，
-月内的最高价和最低价作为最高低价，交易量则汇总
-> to.monthly(AAPL)
-          
- 
---分别获取AAPL,MSFT,ORCL,GOOG的信息数据，并存入变量
-getSymbols(c("AAPL","MSFT","ORCL","GOOG"),env=new.environment,scr="yahoo")
- 
- 
-求出Apple公司在2013.1-2013.10的股票总成交量使用
-1.getSymbols("AAPL",env=new.environment,scr="yahoo",from="2013-01-01",to="2013-10-31")
---将每个月的汇总数据放入变量AAPL中
-2.a=to.monthly(get("AAPL",envir=new.environment))
---汇总1到10月的数据,汇总值为第五个Volume
-3.sum(a[1:10,5])
- 
- 
- 
-找出这些股票暴涨暴跌的时间点（例如开盘价或收盘价比前一天涨跌幅度超过2%）
- 
-AAPL.Cl<-Delt(Cl(get("AAPL",envir=new.environment)),type=("arithmetic"))
-AAPL.Cl[which(abs(AAPL.Cl)>0.02),]
-plot(AAPL.Cl)
+
+```{r}
+  #当天减去前一天的值，然后除以前一天的值,
+  Delt(Op(AAPL),type=("arithmetic"))#算数
+  Delt(Op(AAPL),type=("log"))#对数
+  #(关盘价-开盘价)/开盘价
+  Delt(Op(AAPL),Cl(AAPL))
+            
+  head(AAPL) 
+  #元素前进一天,485.63 本来是2013-10-02的数据
+  Next(AAPL,1)
+```
+
+
+**Next()函数**
+```{r}
+  AAPL
+  #所有观测值的值前进k个单位
+  Next(AAPL,1)
+```
+
+**Return系列**
+```{r}
+  getSymbols("AAPL")
+  periodReturn(AAPL,period = "daily",subset = "2013-10-01::2013-10-23",type = "arithmetic")
+  dailyReturn(AAPL)
+  first(allReturns(AAPL),5)
+```
+
+
+# 三、展现类函数
+
+#这里图完善一下
+
+## （一）基础图形的作图——条形图，蜡烛图，线图
+
+|作图函数|描述|
+|:-:|:-:|
+|chartTheme()||
+|chartSeries()||
+|reChart()||
+|barChart()|箱型图|
+|candleChart()|蜡烛图|
+|lineChart()|线图|
+
+**chartserises()**
+主绘图函数，可以画条形图，蜡烛图和线图
+
+```{r}
+chartSeries(AAPL,name = "AAPLCHART",subset = "013-10-01::2013-10-23")
+
+chartSeries(AAPL,name = "AAPLCHART",subset = "013-10-01::2013-10-23",theme = "white")
+
+#适合印刷
+chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23",theme = "white.mono")
+
+chart_Series(AAPL,type = "auto")
+chart_Series(AAPL,type = "candlesticks")
+chart_Series(AAPL,type = "bar")
+chart_Series(AAPL,type = "line")
+chart_Series(AAPL,type = "matchsticks")
+
+```
+
+**reChart()**
+可以在不重新再画一张新的图的前提下修改已经画出来的图
+
+```{r}
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-10-01::2013-10-23",type="candlesticks")
+reChart(type = "bars",subset ="2013-10-01::2013-10-23" ,show.grid = TRUE)
+```
+
+**barChart()**
+barchar()特有的bartype
+```{r}
+getSymbols("AAPL",scr="yahoo")
+barChart(AAPL,theme = "white")
+barChart(AAPL,theme = "white",subset = "2012-12::2013")
+barChart(AAPL,theme = "white",subset = "last 10 weeks")
+barChart(AAPL,theme = "white",subset = "first 10 weeks")
+
+#bartype
+barChart(AAPL,theme = "white",subset = "first 10 weeks",bar.type = "ohlc")
+barChart(AAPL,theme = "white",subset = "first 10 weeks",bar.type = "hlc")
+
+```
+
+**lineChart()**
+```{r}
+lineChart(AAPL,theme = "white",subset = "2013-10-01::2013-10-23",line.type = "l")
+lineChart(AAPL,theme = "white",subset = "2013-10-01::2013-10-23",line.type = "p")
+lineChart(AAPL,theme = "white",subset = "2013-10-01::2013-10-23",line.type = "b")
+  
+```
+
+## （二）技术分析图
+
+|技术分析图函数|描述|
+  |:-:|:-:|
+  |addADX()||
+  |addATR()||
+  |addBBands()||
+  |addCCI()||
+  |addCMF()||
+  |addCMO()||
+  |addEMA()||
+  |addEnvelope()||
+  |addMACD()||
+  |addMomentum()||
+  |addExpiry()||
+  |addSAR()||
+  |addSMA()||
+  |addSMI()||
+  |addDEMA()||
+  |addDPO()||
+  |addROC()||
+  |addRSI()||
+  |addVo()||
+  |addWMA()||
+  |addWPR()||
+  |addZLEMA()||
+  |addZigZag()||
+  
+例ADX
+```{r}
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks",theme = "white")
+addADX()
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addBBands(n=14,sd=2,draw = "percent")
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addBBands(n=14,sd=2,draw = "width")
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addCCI()
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addRSI()
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addVo()
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addWPR()
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addSAR()
+
+chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks")
+addDPO()
+
+```
+  
+
 
