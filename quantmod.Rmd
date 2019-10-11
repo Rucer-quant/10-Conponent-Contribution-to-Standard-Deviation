@@ -48,7 +48,7 @@ library(quantmod)
   new.environment=new.env()
   getSymbols("AAPL",env=new.environment,scr="yahoo",from="2013-10-01",to="2013-10-10")
   ls(envir=new.environment)
-  pander::pander( new.environment[["AAPL"]],split.cells = 3)
+  pander::pander(head( new.environment[["AAPL"]]),split.cells = 3)
 ```
 
 **获取各种指数的日数据**，例如获取沪深300指数的日数据，它的代码为00300.ss，后面的字母表示该指数从属哪个交易所。
@@ -56,7 +56,7 @@ library(quantmod)
 ```{r message=TRUE}
   getSymbols("000300.ss",env=new.environment,scr ="yahoo",from="2013-10-01",to="2013-12-10")
   ls(envir = new.environment)
-  head(pander::pander(new.environment[["000300.SS"]],split.cells =3),5)
+  pander::pander(head(new.environment[["000300.SS"]]),split.cells =3)
 ```
 
 <!-- ### 2.getFX() 函数 -->
@@ -225,11 +225,11 @@ chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23",theme = "w
 #适合印刷
 chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23",theme = "white.mono")
 
-chart_Series(AAPL,type = "auto"，subset = "2013-10-01::2013-10-23")
-chart_Series(AAPL,type = "candlesticks"，subset = "2013-10-01::2013-10-23")
-chart_Series(AAPL,type = "bar"，subset = "2013-10-01::2013-10-23")
-chart_Series(AAPL,type = "line"，subset = "2013-10-01::2013-10-23")
-chart_Series(AAPL,type = "matchsticks"，subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "auto",subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "candlesticks",subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "bar",subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "line",subset = "2013-10-01::2013-10-23")
+chart_Series(AAPL,type = "matchsticks",subset = "2013-10-01::2013-10-23")
 
 ```
 
