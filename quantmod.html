@@ -366,11 +366,33 @@ summary {
 </div>
 
 
-<p>&amp;#8195 &amp;#8195 quantmod是R中的一个专注金融量化投资分析的包，其提供了一个简单的量化投资分析一体化解决方案，能够帮助用户完成提取数据、数据重整、金融建模、交易回测和模型可视化等诸多环节。</p>
+<p>quantmod是R中的一个专注金融量化投资分析的包，其提供了一个简单的量化投资分析一体化解决方案，能够帮助用户完成提取数据、数据重整、金融建模、交易回测和模型可视化等诸多环节。</p>
 <div id="一etl类函数" class="section level1">
 <h1>一、ETL类函数</h1>
 <div id="一常用的数据类型" class="section level2">
 <h2>（一）常用的数据类型</h2>
+<table>
+<colgroup>
+<col width="50%"></col>
+<col width="50%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">数据类型</th>
+<th align="center">介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">zoo</td>
+<td align="center">包括索引、日期、时间，只依赖于基础的R环境,用于描述规则的和不规则的有序的时间序列数据</td>
+</tr>
+<tr class="even">
+<td align="center">xts</td>
+<td align="center">xts是对时间序列数据(zoo)的一种扩展实现，目标是为了统一时间序列的操作接口。实际上，xts类型继承了zoo类型，丰富了时间序列数据处理的函数，API定义更贴近使用者，更实用，更简单</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="二etl类函数" class="section level2">
 <h2>（二）ETL类函数</h2>
@@ -465,7 +487,7 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">2013/08/20 00:00:00</td>
+<td align="center">2013/08/20 0:00:00</td>
 <td align="center">22.31</td>
 <td align="center">22.52</td>
 <td align="center">22.08</td>
@@ -474,7 +496,7 @@ summary {
 <td align="center">21.51</td>
 </tr>
 <tr class="even">
-<td align="center">2013/08/21 00:00:00</td>
+<td align="center">2013/08/21 0:00:00</td>
 <td align="center">22.24</td>
 <td align="center">22.69</td>
 <td align="center">22.17</td>
@@ -483,7 +505,7 @@ summary {
 <td align="center">21.64</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/08/22 00:00:00</td>
+<td align="center">2013/08/22 0:00:00</td>
 <td align="center">22.69</td>
 <td align="center">23.29</td>
 <td align="center">22.5</td>
@@ -492,7 +514,7 @@ summary {
 <td align="center">22.14</td>
 </tr>
 <tr class="even">
-<td align="center">2013/08/23 00:00:00</td>
+<td align="center">2013/08/23 0:00:00</td>
 <td align="center">23.06</td>
 <td align="center">23.12</td>
 <td align="center">22.75</td>
@@ -501,7 +523,7 @@ summary {
 <td align="center">22.05</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/08/26 00:00:00</td>
+<td align="center">2013/08/26 0:00:00</td>
 <td align="center">23</td>
 <td align="center">23.24</td>
 <td align="center">22.76</td>
@@ -510,7 +532,7 @@ summary {
 <td align="center">22.1</td>
 </tr>
 <tr class="even">
-<td align="center">2013/08/27 00:00:00</td>
+<td align="center">2013/08/27 0:00:00</td>
 <td align="center">22.76</td>
 <td align="center">22.79</td>
 <td align="center">22.31</td>
@@ -519,7 +541,7 @@ summary {
 <td align="center">21.45</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/08/28 00:00:00</td>
+<td align="center">2013/08/28 0:00:00</td>
 <td align="center">22.18</td>
 <td align="center">22.41</td>
 <td align="center">21.66</td>
@@ -528,7 +550,7 @@ summary {
 <td align="center">21.04</td>
 </tr>
 <tr class="even">
-<td align="center">2013/08/29 00:00:00</td>
+<td align="center">2013/08/29 0:00:00</td>
 <td align="center">21.89</td>
 <td align="center">22.15</td>
 <td align="center">21.71</td>
@@ -537,7 +559,7 @@ summary {
 <td align="center">20.97</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/08/30 00:00:00</td>
+<td align="center">2013/08/30 0:00:00</td>
 <td align="center">21.91</td>
 <td align="center">21.91</td>
 <td align="center">20.91</td>
@@ -547,7 +569,7 @@ summary {
 </tr>
 </tbody>
 </table>
-<p><strong>环境参数的介绍</strong> 在全局环境下新建容器，容器是存放对象的。对象的名称是new.environment。通过ls()列出new.environment容器下AAPL变量值. 获取数据，并将获取后的记录放到AAPL中。AAPL通过env参数指定容器。通过get()获取new.environment容器下AAPL变量值。</p>
+<p><strong>环境参数的介绍</strong> 在全局环境下新建容器，容器是存放对象的。对象的名称是new.environment。通过ls()列出new.environment容器下AAPL变量值。 获取数据，并将获取后的记录放到AAPL中。AAPL通过env参数指定容器。通过get()获取new.environment容器下AAPL变量值。</p>
 <pre class="r"><code>  new.environment=new.env()
   getSymbols(&quot;AAPL&quot;,env=new.environment,scr=&quot;yahoo&quot;,from=&quot;2013-10-01&quot;,to=&quot;2013-10-10&quot;)</code></pre>
 <pre><code>## [1] &quot;AAPL&quot;</code></pre>
@@ -576,7 +598,7 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">2013/10/01 00:00:00</td>
+<td align="center">2013/10/01 0:00:00</td>
 <td align="center">68.35</td>
 <td align="center">69.88</td>
 <td align="center">68.34</td>
@@ -584,7 +606,7 @@ summary {
 <td align="center">88470900</td>
 </tr>
 <tr class="even">
-<td align="center">2013/10/02 00:00:00</td>
+<td align="center">2013/10/02 0:00:00</td>
 <td align="center">69.38</td>
 <td align="center">70.26</td>
 <td align="center">69.11</td>
@@ -592,7 +614,7 @@ summary {
 <td align="center">72296000</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/10/03 00:00:00</td>
+<td align="center">2013/10/03 0:00:00</td>
 <td align="center">70.07</td>
 <td align="center">70.34</td>
 <td align="center">68.68</td>
@@ -600,7 +622,7 @@ summary {
 <td align="center">80688300</td>
 </tr>
 <tr class="even">
-<td align="center">2013/10/04 00:00:00</td>
+<td align="center">2013/10/04 0:00:00</td>
 <td align="center">69.12</td>
 <td align="center">69.23</td>
 <td align="center">68.37</td>
@@ -608,7 +630,7 @@ summary {
 <td align="center">64717100</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/10/07 00:00:00</td>
+<td align="center">2013/10/07 0:00:00</td>
 <td align="center">69.51</td>
 <td align="center">70.38</td>
 <td align="center">69.34</td>
@@ -616,7 +638,7 @@ summary {
 <td align="center">78073100</td>
 </tr>
 <tr class="even">
-<td align="center">2013/10/08 00:00:00</td>
+<td align="center">2013/10/08 0:00:00</td>
 <td align="center">69.99</td>
 <td align="center">70.09</td>
 <td align="center">68.65</td>
@@ -655,6 +677,36 @@ summary {
 </tr>
 </tbody>
 </table>
+<table>
+<thead>
+<tr class="header">
+<th align="center">名称</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Symbols</td>
+<td align="center">要抓取的股票的名称或代码</td>
+</tr>
+<tr class="even">
+<td align="center">env</td>
+<td align="center">创建对象的位置，即是创建对象放置的环境</td>
+</tr>
+<tr class="odd">
+<td align="center">reload.Symbols</td>
+<td align="center">是否在制定环境中重新载入现有数据，默认为否</td>
+</tr>
+<tr class="even">
+<td align="center">warnings</td>
+<td align="center">是否输出警告信息，默认为否</td>
+</tr>
+<tr class="odd">
+<td align="center">src</td>
+<td align="center">指定抓取数据的网页，默认为yahoo，可更改为google</td>
+</tr>
+</tbody>
+</table>
 <p><strong>获取各种指数的日数据</strong>，例如获取沪深300指数的日数据，它的代码为00300.ss，后面的字母表示该指数从属哪个交易所。</p>
 <pre class="r"><code>  getSymbols(&quot;000300.ss&quot;,env=new.environment,scr =&quot;yahoo&quot;,from=&quot;2013-10-01&quot;,to=&quot;2013-12-10&quot;)</code></pre>
 <pre><code>## [1] &quot;000300.ss&quot;</code></pre>
@@ -681,42 +733,42 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">2013/10/08 00:00:00</td>
+<td align="center">2013/10/08 0:00:00</td>
 <td align="center">2442</td>
 <td align="center">2442</td>
 <td align="center">2442</td>
 <td align="center">2442</td>
 </tr>
 <tr class="even">
-<td align="center">2013/10/09 00:00:00</td>
+<td align="center">2013/10/09 0:00:00</td>
 <td align="center">2454</td>
 <td align="center">2454</td>
 <td align="center">2454</td>
 <td align="center">2454</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/10/10 00:00:00</td>
+<td align="center">2013/10/10 0:00:00</td>
 <td align="center">2429</td>
 <td align="center">2429</td>
 <td align="center">2429</td>
 <td align="center">2429</td>
 </tr>
 <tr class="even">
-<td align="center">2013/10/11 00:00:00</td>
+<td align="center">2013/10/11 0:00:00</td>
 <td align="center">2469</td>
 <td align="center">2469</td>
 <td align="center">2469</td>
 <td align="center">2469</td>
 </tr>
 <tr class="odd">
-<td align="center">2013/10/14 00:00:00</td>
+<td align="center">2013/10/14 0:00:00</td>
 <td align="center">2473</td>
 <td align="center">2473</td>
 <td align="center">2473</td>
 <td align="center">2473</td>
 </tr>
 <tr class="even">
-<td align="center">2013/10/15 00:00:00</td>
+<td align="center">2013/10/15 0:00:00</td>
 <td align="center">2468</td>
 <td align="center">2468</td>
 <td align="center">2468</td>
@@ -762,20 +814,16 @@ summary {
 </tr>
 </tbody>
 </table>
-<!-- ### 2.getFX() 函数 -->
-<!-- 从oanda上获取汇率 -->
-<!-- ```{r eval=FALSE, include=FALSE, r,message=FALSE} -->
-<!--   getFX("HKD/USD",from="2019-06-20",env=new.environment) -->
-<!--   pander::pander(new.environment[["HKD/USD"]],split.cells =3) -->
-<!-- ``` -->
-<!-- ### 3.getFianacials()函数 -->
-<!-- 从Google Finance上下载财务报表，其中包括IS/BS/CF,"Q"代表季度的数据 -->
-<!-- ```{r eval=FALSE, include=FALSE, r,message=FALSE} -->
-<!--   getFinancials("AAPL") -->
-<!--   pander::pander(new.environment[[AAPL]],split.cells =3) -->
-<!--   viewFinancials(AAPL.f) -->
-<!--   viewFinancials(AAPL.f,c("CF","IS","BS"),"Q") -->
-<!-- ``` -->
+</div>
+<div id="getfx-函数" class="section level3">
+<h3>2.getFX() 函数</h3>
+<p>从oanda上获取汇率</p>
+<pre class="r"><code>#getFX(&quot;HKD/USD&quot;,from=&quot;2019-06-20&quot;,env=new.environment)|被墙|</code></pre>
+</div>
+<div id="getfianacials函数" class="section level3">
+<h3>3.getFianacials()函数</h3>
+<p>从Google Finance上下载财务报表，其中包括IS/BS/CF,“Q”代表季度的数据</p>
+<pre class="r"><code>#getFinancials(&quot;AAPL&quot;)|Google Finance stopped providing data in March, 2018.|</code></pre>
 </div>
 <div id="getdividends" class="section level3">
 <h3>4.getDividends</h3>
@@ -786,119 +834,6 @@ summary {
 ## 2013-02-07 0.05408143
 ## 2013-05-09 0.06224429
 ## 2013-08-08 0.06224429</code></pre>
-<pre class="r"><code>pander::pander(new.environment[[&quot;AAPL&quot;]])</code></pre>
-<table style="width:97%;">
-<caption>Table continues below</caption>
-<colgroup>
-<col width="30%"></col>
-<col width="16%"></col>
-<col width="16%"></col>
-<col width="15%"></col>
-<col width="18%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">Period</th>
-<th align="center">AAPL.Open</th>
-<th align="center">AAPL.High</th>
-<th align="center">AAPL.Low</th>
-<th align="center">AAPL.Close</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">2013/10/01 00:00:00</td>
-<td align="center">68.35</td>
-<td align="center">69.88</td>
-<td align="center">68.34</td>
-<td align="center">69.71</td>
-</tr>
-<tr class="even">
-<td align="center">2013/10/02 00:00:00</td>
-<td align="center">69.38</td>
-<td align="center">70.26</td>
-<td align="center">69.11</td>
-<td align="center">69.94</td>
-</tr>
-<tr class="odd">
-<td align="center">2013/10/03 00:00:00</td>
-<td align="center">70.07</td>
-<td align="center">70.34</td>
-<td align="center">68.68</td>
-<td align="center">69.06</td>
-</tr>
-<tr class="even">
-<td align="center">2013/10/04 00:00:00</td>
-<td align="center">69.12</td>
-<td align="center">69.23</td>
-<td align="center">68.37</td>
-<td align="center">69</td>
-</tr>
-<tr class="odd">
-<td align="center">2013/10/07 00:00:00</td>
-<td align="center">69.51</td>
-<td align="center">70.38</td>
-<td align="center">69.34</td>
-<td align="center">69.68</td>
-</tr>
-<tr class="even">
-<td align="center">2013/10/08 00:00:00</td>
-<td align="center">69.99</td>
-<td align="center">70.09</td>
-<td align="center">68.65</td>
-<td align="center">68.71</td>
-</tr>
-<tr class="odd">
-<td align="center">2013/10/09 00:00:00</td>
-<td align="center">69.23</td>
-<td align="center">69.68</td>
-<td align="center">68.33</td>
-<td align="center">69.51</td>
-</tr>
-</tbody>
-</table>
-<table style="width:42%;">
-<colgroup>
-<col width="19%"></col>
-<col width="22%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">AAPL.Volume</th>
-<th align="center">AAPL.Adjusted</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">88470900</td>
-<td align="center">62.55</td>
-</tr>
-<tr class="even">
-<td align="center">72296000</td>
-<td align="center">62.76</td>
-</tr>
-<tr class="odd">
-<td align="center">80688300</td>
-<td align="center">61.97</td>
-</tr>
-<tr class="even">
-<td align="center">64717100</td>
-<td align="center">61.92</td>
-</tr>
-<tr class="odd">
-<td align="center">78073100</td>
-<td align="center">62.53</td>
-</tr>
-<tr class="even">
-<td align="center">72729300</td>
-<td align="center">61.65</td>
-</tr>
-<tr class="odd">
-<td align="center">75431300</td>
-<td align="center">62.38</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -1489,9 +1424,6 @@ leading=TRUE, 去掉不完整区间<br />
 </div>
 <div id="三展现类函数" class="section level1">
 <h1>三、展现类函数</h1>
-</div>
-<div id="这里图完善一下图的名字" class="section level1">
-<h1>这里图完善一下图的名字</h1>
 <div id="一基础图形的作图条形图蜡烛图线图" class="section level2">
 <h2>（一）基础图形的作图——条形图，蜡烛图，线图</h2>
 <table>
@@ -1504,15 +1436,15 @@ leading=TRUE, 去掉不完整区间<br />
 <tbody>
 <tr class="odd">
 <td align="center">chartTheme()</td>
-<td align="center">啥啥啥</td>
+<td align="center">可以查看已有主题的参数或者量身订造一个有自己风格的图形主题</td>
 </tr>
 <tr class="even">
 <td align="center">chartSeries()</td>
-<td align="center">啥都是</td>
+<td align="center">主绘图软件，可以画出条形图，蜡烛图，线图</td>
 </tr>
 <tr class="odd">
 <td align="center">reChart()</td>
-<td align="center">啥</td>
+<td align="center">可以在不重新画一张新图的前提下修改已经画出的图</td>
 </tr>
 <tr class="even">
 <td align="center">barChart()</td>
@@ -1525,6 +1457,53 @@ leading=TRUE, 去掉不完整区间<br />
 <tr class="even">
 <td align="center">lineChart()</td>
 <td align="center">线图</td>
+</tr>
+</tbody>
+</table>
+<p><strong>chartTheme()</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">chartTheme参数</th>
+<th align="center">全称</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">theme</td>
+<td align="center">theme</td>
+<td align="center">主题颜色</td>
+</tr>
+<tr class="even">
+<td align="center">fg.col</td>
+<td align="center">foreground color</td>
+<td align="center">前景颜色</td>
+</tr>
+<tr class="odd">
+<td align="center">bg.col</td>
+<td align="center">background color</td>
+<td align="center">背景颜色</td>
+</tr>
+<tr class="even">
+<td align="center">grid.col</td>
+<td align="center">grid color</td>
+<td align="center">网格颜色</td>
+</tr>
+<tr class="odd">
+<td align="center">border</td>
+<td align="center">border color</td>
+<td align="center">边界颜色</td>
+</tr>
+<tr class="even">
+<td align="center">up.col</td>
+<td align="center">up bar/candle color</td>
+<td align="center">阳线颜色</td>
+</tr>
+<tr class="odd">
+<td align="center">dn.col</td>
+<td align="center">down bar/candle color</td>
+<td align="center">阴线颜色</td>
 </tr>
 </tbody>
 </table>

@@ -17,6 +17,10 @@ quantmod是R中的一个专注金融量化投资分析的包，其提供了一�
 
 ## （一）常用的数据类型
 
+|数据类型|介绍|
+|:-:|:-:|
+|zoo|包括索引、日期、时间，只依赖于基础的R环境,用于描述规则的和不规则的有序的时间序列数据|
+|xts|xts是对时间序列数据(zoo)的一种扩展实现，目标是为了统一时间序列的操作接口。实际上，xts类型继承了zoo类型，丰富了时间序列数据处理的函数，API定义更贴近使用者，更实用，更简单|
 
 ## （二）ETL类函数
 
@@ -42,7 +46,7 @@ quantmod是R中的一个专注金融量化投资分析的包，其提供了一�
 ```
 
 **环境参数的介绍**
-在全局环境下新建容器，容器是存放对象的。对象的名称是new.environment。通过ls()列出new.environment容器下AAPL变量值.
+在全局环境下新建容器，容器是存放对象的。对象的名称是new.environment。通过ls()列出new.environment容器下AAPL变量值。
 获取数据，并将获取后的记录放到AAPL中。AAPL通过env参数指定容器。通过get()获取new.environment容器下AAPL变量值。
 
 ```{r}
@@ -52,6 +56,14 @@ quantmod是R中的一个专注金融量化投资分析的包，其提供了一�
   pander::pander(head( new.environment[["AAPL"]]),split.cells = 3)
 ```
 
+|名称|作用|
+|:-:|:-:|
+|Symbols|要抓取的股票的名称或代码|
+|env|创建对象的位置，即是创建对象放置的环境|
+|reload.Symbols|是否在制定环境中重新载入现有数据，默认为否|
+|warnings|是否输出警告信息，默认为否|
+|src|指定抓取数据的网页，默认为yahoo，可更改为google|
+
 **获取各种指数的日数据**，例如获取沪深300指数的日数据，它的代码为00300.ss，后面的字母表示该指数从属哪个交易所。
 
 ```{r message=TRUE}
@@ -60,27 +72,26 @@ quantmod是R中的一个专注金融量化投资分析的包，其提供了一�
   pander::pander(head(new.environment[["000300.SS"]]),split.cells =3)
 ```
 
-<!-- ### 2.getFX() 函数 -->
-<!-- 从oanda上获取汇率 -->
+### 2.getFX() 函数
 
-<!-- ```{r eval=FALSE, include=FALSE, r,message=FALSE} -->
-<!--   getFX("HKD/USD",from="2019-06-20",env=new.environment) -->
-<!--   pander::pander(new.environment[["HKD/USD"]],split.cells =3) -->
-<!-- ``` -->
+从oanda上获取汇率
 
-<!-- ### 3.getFianacials()函数 -->
-<!-- 从Google Finance上下载财务报表，其中包括IS/BS/CF,"Q"代表季度的数据 -->
-<!-- ```{r eval=FALSE, include=FALSE, r,message=FALSE} -->
-<!--   getFinancials("AAPL") -->
-<!--   pander::pander(new.environment[[AAPL]],split.cells =3) -->
-<!--   viewFinancials(AAPL.f) -->
-<!--   viewFinancials(AAPL.f,c("CF","IS","BS"),"Q") -->
-<!-- ``` -->
+```{r message=TRUE}
+#getFX("HKD/USD",from="2019-06-20",env=new.environment)|被墙|
+```
+
+### 3.getFianacials()函数
+
+从Google Finance上下载财务报表，其中包括IS/BS/CF,"Q"代表季度的数据
+
+```{r message=TRUE}
+#getFinancials("AAPL")|Google Finance stopped providing data in March, 2018.|
+```
 
 ### 4.getDividends
+
 ```{r,message=FALSE}
 getDividends("AAPL",env = new.environment,from =" 2012-01-01",to="2013-10-25",vrobose=TRUE)
-pander::pander(new.environment[["AAPL"]])
 ```
 
 # 二、分析类函数
@@ -242,18 +253,29 @@ periodReturn(x,
 
 # 三、展现类函数
 
-# 这里图完善一下图的名字
-
 ## （一）基础图形的作图——条形图，蜡烛图，线图
 
 |作图函数|描述|
 |:-:|:-:|
-|chartTheme()|啥啥啥|
-|chartSeries()|啥都是|
-|reChart()|啥|
+|chartTheme()|可以查看已有主题的参数或者量身订造一个有自己风格的图形主题|
+|chartSeries()|主绘图软件，可以画出条形图，蜡烛图，线图|
+|reChart()|可以在不重新画一张新图的前提下修改已经画出的图|
 |barChart()|箱型图|
 |candleChart()|蜡烛图|
 |lineChart()|线图|
+
+**chartTheme()**
+
+|chartTheme参数|全称|作用|
+|:-:|:-:|:-:|
+|theme|theme|主题颜色|
+|fg.col|foreground color|前景颜色|
+|bg.col|background color|背景颜色|
+|grid.col|grid color|网格颜色|
+|border|border color|边界颜色|
+|up.col|up bar/candle color|阳线颜色|
+|dn.col|down bar/candle color|阴线颜色|
+
 
 **chartserises()**
 主绘图函数，可以画条形图，蜡烛图和线图
