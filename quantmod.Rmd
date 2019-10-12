@@ -82,6 +82,8 @@ getDividends("AAPL",env = new.environment,from =" 2012-01-01",to="2013-10-25",vr
 pander::pander(new.environment[["AAPL"]])
 ```
 
+# 二、分析类函数
+
 ## （一）列名函数
 提取某种类型
 
