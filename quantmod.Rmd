@@ -308,31 +308,29 @@ lineChart(AAPL,theme = "white",subset = "2013-10-01::2013-10-23",line.type = "b"
 
 |技术分析图函数|描述|
   |:-:|:-:|
-  |addADX()||
-  |addATR()||
-  |addBBands()||
-  |addCCI()||
-  |addCMF()||
-  |addCMO()||
-  |addEMA()||
-  |addEnvelope()||
-  |addMACD()||
-  |addMomentum()||
-  |addExpiry()||
-  |addSAR()||
-  |addSMA()||
-  |addSMI()||
-  |addDEMA()||
-  |addDPO()||
-  |addROC()||
-  |addRSI()||
-  |addVo()||
-  |addWMA()||
-  |addWPR()||
-  |addZLEMA()||
-  |addZigZag()||
+  |addADX()|平均趋向指标|
+  |addATR()|真实波动幅均值|
+  |addBBands()|布林线指标|
+  |addCCI()|超卖超卖指标|
+  |addCMF()|恰奇现金流|
+  |addCMO()|钱德动量摆动指标|
+  |addEMA()|指数平滑移动平均指标|
+  |addEnvelope()|包略线指标|
+  |addMACD()|异同移动平均线|
+  |addMomentum()|动量指标|
+  |addSAR()|抛物线转向指标|
+  |addSMA()|简单移动平均线|
+  |addDEMA()|双移动平均线|
+  |addExpiry|期权期货到期时间点|
+  |addDPO()|区间震荡线|
+  |addROC()|变动速率指标|
+  |addRSI()|相对强弱指标|
+  |addVo()|成交量指标|
+  |addWMA()|加权移动平均线|
+  |addWPR()|威廉指标|
+
   
-例ADX
+相关举例
 ```{r}
 chartSeries(AAPL,name="AAPLBARCHART",subset="2013-08-01::2013-10-23",type="candlesticks",theme = "white")
 addADX()
