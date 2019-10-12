@@ -82,14 +82,6 @@ getDividends("AAPL",env = new.environment,from =" 2012-01-01",to="2013-10-25",vr
 pander::pander(new.environment[["AAPL"]])
 ```
 
-# 二、分析类函数
-
-**1.is 族函数**
-**2.hash 族函数**
-**3.列名函数**
-**4.计算函数**
-
- 
 ## （一）列名函数
 提取某种类型
 
@@ -107,8 +99,22 @@ pander::pander(new.environment[["AAPL"]])
 ```{r}
   getSymbols("AAPL",from="2013-09-01", to="2013-09-20")
   Op(AAPL)
-  Hi(AAPL)
   Lo(AAPL)
+  new.environment=new.env()
+  getSymbols(c("BABA", "BIDU", "JD"), src = "yahoo", env = new.environment, 
+  from = "2019-01-01", to = "2019-01-10")#抓取三家企业的股票交易数据
+  m <- cbind(Ad(get("BABA", env = new.environment)), Ad(get("BIDU", env = new.environment)),
+  Ad(get("JD", env = new.environment)))#汇总三家企业的股票调整价格
+  m
+  #seriesLo和seriesHi将分别返回给定系列的低值和高值，以收盘价判断。
+  seriesHi(AAPL)
+  seriesLo(AAPL)
+
+  #seriesAccel，seriesDecel，seriesIncr和seriesDecr，返回一个逻辑向量，该逻辑向量指示序列是加速   ，减速，增加还是减少。
+  seriesDecr(AAPL)
+  seriesAccel(AAPL)
+  Delt(Lo(AAPL))   #计算最低价的变化率
+  Delt(Hi(AAPL))   #计算最高价的变化率
 ```
  
 
@@ -120,8 +126,15 @@ pander::pander(new.environment[["AAPL"]])
     is.BBO()
     is.TBBO()
     is.HLC()
- 
-## （三）hash 函数
+
+```{r}
+  is.OHLCV(AAPL)
+  a=AAPL[,-5]
+  is.OHLCV(a)
+```
+
+
+## （三）has 族函数
 检查数据里面是否包含某类型的数据
 
     has.OHLC()
@@ -141,13 +154,11 @@ pander::pander(new.environment[["AAPL"]])
 
 ```{r,message=FALSE}
   #检查数据里面包含某种数据类型
-  #是否包含开盘价
-  has.Op(AAPL) 
-  #是否包含开盘价，最高价，最低价，收盘价
-  has.OHLC(AAPL)
-  has.OHLC(AAPL,which=FALSE)
 
-  has.OHLC(AAPL,which=TRUE)
+  has.Op(AAPL)    #是否包含开盘价
+  has.OHLC(AAPL)  #是否包含开盘价，最高价，最低价，收盘价
+  has.OHLC(AAPL,which=FALSE)
+  has.OHLC(AAPL,which=TRUE)  #返回对应数据类型所在位置
 ```
  
  
@@ -158,8 +169,6 @@ pander::pander(new.environment[["AAPL"]])
 |Delt()|计算变化率|
 |Lag()|求滞后K期|
 |Next()|所有观测值的值前进k个单位|
-|first()|求前K个元素|
-|last()|求后K个元素|
 |periodReturn()|计算不同阶段的收益率|
 |dailyReturn()|计算日收益率|
 |weeklyReturn()|计算周收益率|
@@ -172,31 +181,60 @@ pander::pander(new.environment[["AAPL"]])
 **Delt()函数**
 主要是用来计算一个序列的一个阶段到另一个阶段的变化率或者计算两个序列之间的变化率
 
+|参数|描述|
+|:-:|:-:|
+|基本格式|Delt(x1, x2 = NULL, k = 0, type = c("arithmetic", "log"))|
+|x1，x2|比较的对象变量|
+|k|相差时期数|
+|arithmetic|(x2(t) - x1(t-k))/x1(t-k)|
+|log|log(x2(t)/x1(t-k))|
+
 ```{r}
-  #当天减去前一天的值，然后除以前一天的值,
-  Delt(Op(AAPL),type=("arithmetic"))#算数
+  Delt(Op(AAPL),k=2,type=("arithmetic"))#算数
   Delt(Op(AAPL),type=("log"))#对数
-  #(关盘价-开盘价)/开盘价
+  #(收盘价-开盘价)/开盘价
   Delt(Op(AAPL),Cl(AAPL))
-            
-
+  #计算函数的简化形式,可在OHLC.Transformations中查看
+  OpCl(AAPL) 
+  OpOp(AAPL)
 ```
 
 
-**Next()函数**
+**Next()函数与Lag()函数**
+基本格式：Next(x, k = 1),Lag(x, k = 1),其中k代表提前或推后的时期数
 ```{r}
-  head(AAPL)
+  Stock.Close <- c(102.12,102.62,100.12,103.00,103.87,103.12,105.12)
+  Close.Dates <- as.Date(c(10660,10661,10662,10665,10666,10667,10668),origin="1970-01-01")
+  Stock.Close <- zoo(Stock.Close,Close.Dates)
+  Stock.Close
+  Next(Stock.Close) 
+  getSymbols("AMZN",from="2013-09-01", to="2013-09-10")
+  AMZN
   #所有观测值的值前进k个单位
-  Next(AAPL,1)
+  Next(AMZN,2)
 ```
 
-**Return系列**
+**Return系列**  
+periodReturn(x,  
+            period='monthly' 可选daily, weekly, monthly, quarterly, annual, yearly  
+            subset=NULL,   指定区间  
+            type='arithmetic',   单利形式及复利形式  
+            leading=TRUE,   去掉不完整区间  
+            ...)  
 ```{r}
   getSymbols("AAPL")
   periodReturn(AAPL,period = "daily",subset = "2013-10-01::2013-10-23",type = "arithmetic")
-  head(dailyReturn(AAPL))
+  dailyReturn(AAPL,subset = "2013-10-01::2013-10-23")
+  annualReturn(AAPL)   #yearly与annual计算结果一致
+  yearlyReturn(AAPL)
+  #leading的功能探究
+  periodReturn(AAPL,period='monthly',subset='2007-01-01::2007-12-05',leading = FALSE)
+  periodReturn(AAPL,period='monthly',subset='2007-01-01::2007-12-05',leading = TRUE)
+  yearlyReturn(AAPL,leading=FALSE)
   first(allReturns(AAPL),5)
+  last(allReturns(AAPL),5)
 ```
+
 
 
 # 三、展现类函数
