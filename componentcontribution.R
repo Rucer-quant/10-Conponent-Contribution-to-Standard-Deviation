@@ -44,8 +44,8 @@ ui <- dashboardPage(
     ),
     fluidRow(
       column(6,selectInput("rebalance","rebal freq",
-                           c("Yearly"="years","Monthly"="months",
-                             "Weekly"="weeks"))),
+                           c("Yearly"="yearly","Monthly"="monthly",
+                             "Weekly"="weekly"))),
       column(6,
              numericInput("window","Window",24))
              
@@ -90,16 +90,40 @@ server <- function(input, output) {
       map(~Ad(get(.)))%>%
       reduce(merge)%>%
       `colnames<-`(symbols)
-    asset_returns_dplyr_byhand <-
-      prices%>%
-      to.monthly(indexAt = "lastof",OHLC = FALSE)%>%
-      tk_tbl(preserve_index = TRUE,rename_index = "date")%>%
-      gather(asset,returns,-date)%>%
-      group_by(asset)%>%
-      mutate(returns = log(returns)- log(lag(returns) ))%>%
-      spread(asset,returns)%>%
-      select(date,symbols)%>%
-      slice(-1)
+    
+    if (input$rebalance=="monthly")
+        asset_returns_dplyr_byhand <-
+          prices%>%
+          to.monthly(indexAt = "lastof",OHLC = FALSE)%>%
+          tk_tbl(preserve_index = TRUE,rename_index = "date")%>%
+          gather(asset,returns,-date)%>%
+          group_by(asset)%>%
+          mutate(returns = log(returns)- log(lag(returns) ))%>%
+          spread(asset,returns)%>%
+          select(date,symbols)%>%
+          slice(-1)
+     else if (input$rebalance=="yearly")
+       asset_returns_dplyr_byhand <-
+          prices%>%
+          to.yearly(indexAt = "lastof",OHLC = FALSE)%>%
+          tk_tbl(preserve_index = TRUE,rename_index = "date")%>%
+          gather(asset,returns,-date)%>%
+          group_by(asset)%>%
+          mutate(returns = log(returns)- log(lag(returns) ))%>%
+          spread(asset,returns)%>%
+          select(date,symbols)%>%
+          slice(-1)
+     else 
+        asset_returns_dplyr_byhand <-
+          prices%>%
+          to.weekly(indexAt = "lastof",OHLC = FALSE)%>%
+          tk_tbl(preserve_index = TRUE,rename_index = "date")%>%
+          gather(asset,returns,-date)%>%
+          group_by(asset)%>%
+          mutate(returns = log(returns)- log(lag(returns) ))%>%
+          spread(asset,returns)%>%
+          select(date,symbols)%>%
+          slice(-1)
   })
   
   
