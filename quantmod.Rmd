@@ -1,7 +1,11 @@
 ---
+
 Package: quantmod
 
 author: Zhao Sibo,Deng YiQun,Long Xicheng
+
+output: rmarkdown::html_vignette
+
 ---
 
 ```{r ,include = FALSE}
@@ -11,7 +15,10 @@ library(TTR)
 library(xts)
 library(quantmod)
 ```
+
+
 quantmod是R中的一个专注金融量化投资分析的包，其提供了一个简单的量化投资分析一体化解决方案，能够帮助用户完成提取数据、数据重整、金融建模、交易回测和模型可视化等诸多环节。
+
 
 # 一、ETL类函数
 
@@ -120,10 +127,24 @@ getDividends("AAPL",env = new.environment,from =" 2012-01-01",to="2013-10-25",vr
   m <- cbind(Ad(get("BABA", env = new.environment)), Ad(get("BIDU", env = new.environment)),
   Ad(get("JD", env = new.environment)))#汇总三家企业的股票调整价格
   m
-  #seriesLo和seriesHi将分别返回给定系列的低值和高值，以收盘价判断。
-  seriesHi(AAPL)
-  seriesLo(AAPL)
+```
 
+```{r}
+getSymbols("JD",scr ="yahoo",from ="2019-06-01",to ="2019-10-01")
+  #seriesLo和seriesHi将分别返回给定系列的低值和高值，以收盘价判断。
+  seriesHi(Op(JD))
+  seriesLo(Op(JD))
+  a=data.frame(name=c(1:5),high=c(1:5),low=c(1:5))
+  for (i in 1:5) {
+    a[i,1]=names(JD[0,i])
+    a[i,2]=max(JD[,i])
+    a[i,3]=round(min(JD[,i]),2)
+  }
+  print(a)
+```
+
+
+```{r}
   #seriesAccel，seriesDecel，seriesIncr和seriesDecr，返回一个逻辑向量，该逻辑向量指示序列是加速   ，减速，增加还是减少。
   seriesDecr(AAPL)
   seriesAccel(AAPL)
@@ -143,6 +164,7 @@ getDividends("AAPL",env = new.environment,from =" 2012-01-01",to="2013-10-25",vr
 
 ```{r}
   is.OHLCV(AAPL)
+  #以下证明OHLCV是一个并的判断
   a=AAPL[,-5]
   is.OHLCV(a)
 ```
@@ -241,8 +263,9 @@ periodReturn(x,
   dailyReturn(AAPL,subset = "2013-10-01::2013-10-23")
   annualReturn(AAPL)   #yearly与annual计算结果一致
   yearlyReturn(AAPL)
-  #leading的功能探究
+  #leading的功能探究，去除不完整区间
   periodReturn(AAPL,period='monthly',subset='2007-01-01::2007-12-05',leading = FALSE)
+  #把2017年1月的收益率根据一月末收盘价相对一月初开盘价的变化率
   periodReturn(AAPL,period='monthly',subset='2007-01-01::2007-12-05',leading = TRUE)
   yearlyReturn(AAPL,leading=FALSE)
   first(allReturns(AAPL),5)
@@ -276,7 +299,32 @@ periodReturn(x,
 |up.col|up bar/candle color|阳线颜色|
 |dn.col|down bar/candle color|阴线颜色|
 
+**chartseries()**
+|chartseries参数|全称|作用|
+|:-:|:-:|:-:|
+|x|an OHLC object - see details|对象|
+|type|style of chart to draw|画图类型|
+|name|name of chart|图表名称|
+|subset|xts style date subsetting argument|时间区间|
+|show.grid|display price grid lines|是否显示网格颜色|
+|time.scale|what is the timescale? automatically deduced (broken)||
+|log.scale|should the y-axis be log-scaled?||
+|TA|a vector of technical indicators and params, or character strings|增加的技术指标|
+|TAsep|TA delimiter for TA strings|
+|line.type|type of line in line chart|线的类型 l线/p点/b点线|
+|bar.type|type of barchart - ohlc or hlc|柱状元素 是否包含开盘价|
+|theme|a chart.theme object|图默认板式|
+|layout|if NULL bypass internal layout||
+|major.ticks|where should major ticks be drawn|
+|minor.ticks|should minor ticks be draw?|
+|yrange|override y-scale|
+|plot|should plot be drawn|
+|up.col|up bar/candle color|阳线颜色|
+|dn.col|down bar/candle color|阴线颜色|
+|color.vol|color code volume?|交易量是否有颜色|
+|multi.col|4 color candle pattern|四色蜡烛图板式|
 
+                    
 **chartserises()**
 主绘图函数，可以画条形图，蜡烛图和线图
 
@@ -316,7 +364,8 @@ barChart(AAPL,theme = "white",subset = "first 10 weeks")
 #bartype
 barChart(AAPL,theme = "white",subset = "first 10 weeks",bar.type = "ohlc")
 barChart(AAPL,theme = "white",subset = "first 10 weeks",bar.type = "hlc")
-
+#chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23",show.grid = FALSE,theme = "white",type = "bar",bar.type = "hlc")
+#chartSeries(AAPL,name = "AAPLCHART",subset = "2013-10-01::2013-10-23",show.grid = FALSE,theme = "white",type = "bar",bar.type = "ohlc")
 ```
 
 **lineChart()**
@@ -326,6 +375,7 @@ lineChart(AAPL,theme = "white",subset = "2013-10-01::2013-10-23",line.type = "p"
 lineChart(AAPL,theme = "white",subset = "2013-10-01::2013-10-23",line.type = "b")
   
 ```
+
 
 ## （二）技术分析图
 
@@ -339,7 +389,7 @@ lineChart(AAPL,theme = "white",subset = "2013-10-01::2013-10-23",line.type = "b"
   |addCMO()|钱德动量摆动指标|
   |addEMA()|指数平滑移动平均指标|
   |addEnvelope()|包略线指标|
-  |addMACD()|异同移动平均线|
+  |addMACD()|异同移动平均线
   |addMomentum()|动量指标|
   |addSAR()|抛物线转向指标|
   |addSMA()|简单移动平均线|
