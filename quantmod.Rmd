@@ -299,7 +299,14 @@ periodReturn(x,
 |up.col|up bar/candle color|阳线颜色|
 |dn.col|down bar/candle color|阴线颜色|
 
+```{r}
+chartTheme("white")
+chartTheme("white",up.col="blue",dn.col="red")
+```
+
+
 **chartseries()**
+
 |chartseries参数|全称|作用|
 |:-:|:-:|:-:|
 |x|an OHLC object - see details|对象|
@@ -307,18 +314,11 @@ periodReturn(x,
 |name|name of chart|图表名称|
 |subset|xts style date subsetting argument|时间区间|
 |show.grid|display price grid lines|是否显示网格颜色|
-|time.scale|what is the timescale? automatically deduced (broken)||
-|log.scale|should the y-axis be log-scaled?||
 |TA|a vector of technical indicators and params, or character strings|增加的技术指标|
-|TAsep|TA delimiter for TA strings|
+ strings|TA字符串的TA分隔符|
 |line.type|type of line in line chart|线的类型 l线/p点/b点线|
-|bar.type|type of barchart - ohlc or hlc|柱状元素 是否包含开盘价|
+|bar.type|type of barchart - ohlc or hlc|柱状元素，是否包含开盘价|
 |theme|a chart.theme object|图默认板式|
-|layout|if NULL bypass internal layout||
-|major.ticks|where should major ticks be drawn|
-|minor.ticks|should minor ticks be draw?|
-|yrange|override y-scale|
-|plot|should plot be drawn|
 |up.col|up bar/candle color|阳线颜色|
 |dn.col|down bar/candle color|阴线颜色|
 |color.vol|color code volume?|交易量是否有颜色|
