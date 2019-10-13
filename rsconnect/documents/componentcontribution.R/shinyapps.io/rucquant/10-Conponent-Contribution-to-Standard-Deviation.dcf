@@ -1,0 +1,13 @@
+name: 10-Conponent-Contribution-to-Standard-Deviation
+title: 10-Conponent-Contribution-to-Standard-Deviation
+username:
+account: rucquant
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1322817
+bundleId: 2496444
+url: https://rucquant.shinyapps.io/10-Conponent-Contribution-to-Standard-Deviation/
+when: 1570975726.43461
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ~$资产对组合标准差的成分贡献.docx|10 component contribution .R|10 component contribution to standard deviation.R|单个资产对组合标准差的成分贡献.docx|case1.R|plotly_example.R|quantmod.html|quantmod.Rmd|README.md
