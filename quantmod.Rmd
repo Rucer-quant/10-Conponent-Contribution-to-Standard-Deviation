@@ -4,8 +4,6 @@ Package: quantmod
 
 author: Zhao Sibo,Deng YiQun,Long Xicheng
 
-output: rmarkdown::html_vignette
-
 ---
 
 ```{r ,include = FALSE}
@@ -131,7 +129,7 @@ getDividends("AAPL",env = new.environment,from =" 2012-01-01",to="2013-10-25",vr
 
 ```{r}
 getSymbols("JD",scr ="yahoo",from ="2019-06-01",to ="2019-10-01")
-  #seriesLo和seriesHi将分别返回给定系列的低值和高值，以收盘价判断。
+  #seriesLo和seriesHi将分别返回给定系列的低值和高值
   seriesHi(Op(JD))
   seriesLo(Op(JD))
   a=data.frame(name=c(1:5),high=c(1:5),low=c(1:5))
